@@ -387,9 +387,9 @@ summary {
   vec_factor = factor(c(&quot;BLACK&quot;, &quot;BLACK&quot;, &quot;BLACK&quot;, &quot;WHITE&quot;, &quot;WHITE&quot;, &quot;WHITE&quot;,&quot;OTHER&quot;,&quot;OTHER&quot;))
 )
 mean(pull(la_df, norm_samp))</code></pre>
-<pre><code>## [1] -0.7341185</code></pre>
+<pre><code>## [1] -0.1284198</code></pre>
 <pre class="r"><code>mean(pull(la_df, norm_samp_pos))</code></pre>
-<pre><code>## [1] 0.25</code></pre>
+<pre><code>## [1] 0.375</code></pre>
 <pre class="r"><code>mean(pull(la_df, vec_char))</code></pre>
 <pre><code>## Warning in mean.default(pull(la_df, vec_char)): argument is not numeric or
 ## logical: returning NA</code></pre>
@@ -398,6 +398,27 @@ mean(pull(la_df, norm_samp))</code></pre>
 <pre><code>## Warning in mean.default(pull(la_df, vec_factor)): argument is not numeric
 ## or logical: returning NA</code></pre>
 <pre><code>## [1] NA</code></pre>
+<div id="the-mean-for-variables-norm_samp-and-norm_samp_pos-have-the-ability-to-be-calculated.-however-the-mean-for-vector-characters-and-vector-factors-are-unable-to-be-calculated." class="section level3">
+<h3>The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated.</h3>
+<pre class="r"><code>  mean(as.numeric(pull(la_df,norm_samp_pos)))
+  mean(as.numeric(pull(la_df,vec_char)))</code></pre>
+<pre><code>## Warning in mean(as.numeric(pull(la_df, vec_char))): NAs introduced by
+## coercion</code></pre>
+<pre class="r"><code>  mean(as.numeric(pull(la_df,vec_factor)))</code></pre>
+</div>
+<div id="when-applying-the-as.numeric-function-to-the-logical-character-and-factor-variables-the-mean-was-able-to-be-calculated-for-the-logical-and-factor-variables-but-not-the-character-variables." class="section level3">
+<h3>When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables.</h3>
+<pre class="r"><code>  pull(la_df,norm_samp)*(as.numeric(pull(la_df,norm_samp_pos)))</code></pre>
+<pre><code>## [1] 0.0000000 0.3367043 0.7916110 0.0000000 0.0000000 0.0000000 0.8266064
+## [8] 0.0000000</code></pre>
+<pre class="r"><code>  pull(la_df,norm_samp)*(as.factor(pull(la_df,norm_samp_pos)))</code></pre>
+<pre><code>## Warning in Ops.factor(pull(la_df, norm_samp), (as.factor(pull(la_df,
+## norm_samp_pos)))): '*' not meaningful for factors</code></pre>
+<pre><code>## [1] NA NA NA NA NA NA NA NA</code></pre>
+<pre class="r"><code>  pull(la_df,norm_samp)*(as.numeric(as.factor(pull(la_df,norm_samp_pos))))</code></pre>
+<pre><code>## [1] -0.4248252  0.6734087  1.5832219 -1.1803908 -0.0913648 -0.6667413
+## [7]  1.6532129 -0.6189584</code></pre>
+</div>
 </div>
 
 

@@ -22,3 +22,17 @@ mean(pull(la_df, norm_samp))
 mean(pull(la_df, norm_samp_pos))
 mean(pull(la_df, vec_char))
 mean(pull(la_df, vec_factor))
+```
+### The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated. 
+```{r Question_1A, results="hide"}
+  mean(as.numeric(pull(la_df,norm_samp_pos)))
+  mean(as.numeric(pull(la_df,vec_char)))
+  mean(as.numeric(pull(la_df,vec_factor)))
+```
+### When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables.
+```{r Question_1B}
+  pull(la_df,norm_samp)*(as.numeric(pull(la_df,norm_samp_pos)))
+  pull(la_df,norm_samp)*(as.factor(pull(la_df,norm_samp_pos)))
+  pull(la_df,norm_samp)*(as.numeric(as.factor(pull(la_df,norm_samp_pos))))
+```
+  
