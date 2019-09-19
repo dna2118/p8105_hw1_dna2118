@@ -7,11 +7,11 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo=TRUE)
+library(tidyverse)
 ```
 
 # Problem 1 
 ```{R Question_1}
-library(tidyverse)
 la_df = tibble(
   norm_samp = rnorm(8),
   norm_samp_pos = norm_samp > 0,
@@ -23,16 +23,56 @@ mean(pull(la_df, norm_samp_pos))
 mean(pull(la_df, vec_char))
 mean(pull(la_df, vec_factor))
 ```
-### The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated. 
+### The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated.
 ```{r Question_1A, results="hide"}
   mean(as.numeric(pull(la_df,norm_samp_pos)))
   mean(as.numeric(pull(la_df,vec_char)))
   mean(as.numeric(pull(la_df,vec_factor)))
 ```
-### When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables.
+### When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables because they do not have assigned numeric values.
 ```{r Question_1B}
   pull(la_df,norm_samp)*(as.numeric(pull(la_df,norm_samp_pos)))
   pull(la_df,norm_samp)*(as.factor(pull(la_df,norm_samp_pos)))
   pull(la_df,norm_samp)*(as.numeric(as.factor(pull(la_df,norm_samp_pos))))
 ```
-  
+# Problem 2 
+```{r Question 2}
+set.seed(1234)
+
+p2_df = tibble(
+  x = rnorm(500),
+  y = rnorm(500),
+  log_vec = x + y > 1 ,
+)
+  num_vec = as.numeric(pull(p2_df, log_vec))
+  fac_vec = as.factor(pull(p2_df, log_vec))
+
+```
+
+The data set `p2_df` has `r nrow(p2_df)` rows and `r ncol(p2_df)` columns.
+
+* The mean of the sample is `r mean(pull(p2_df,x))`.
+* The median of the sample is `r median(pull(p2_df,x))`.
+* The standard deviation of the sample is `r sd(pull(p2_df,x))`.
+* The proportion of cases for which x + y > 1 is `r mean(pull(p2_df,log_vec))`
+
+Next we show a scatterplot of `y` vs `x` using the logical variable, numeric, and factor variable, respectively.
+
+```{r yx_scatter}
+# In the first scatterplot, x + y > 1 is our logical variable, represented by the legend, True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
+
+ggplot(p2_df, aes(x = x, y = y, color=log_vec)) + geom_point() 
+
+# In the second scatterplot, we transformed our logical variable into a numeric value. A scale represents that 0 (dark blue) is equal to false (x + y > 1 is FALSE) and 1 (light blue) is equal to true (x+y >1 is TRUE).
+
+ggplot(p2_df, aes(x = x, y = y, color=num_vec)) + geom_point() 
+
+# In the third scatterplot, we transformed our logical variable into a factor value. True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
+
+ggplot(p2_df, aes(x = x, y = y, color=fac_vec)) + geom_point()
+
+# Now, we export the first scatterplot to my project directory using ggsave.
+ggplot(p2_df, aes(x = x, y = y, color=log_vec)) + geom_point() 
+ggsave("scatter_plot.pdf",height = 4, width = 6)
+```
+
