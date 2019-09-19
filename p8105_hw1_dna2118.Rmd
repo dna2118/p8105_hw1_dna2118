@@ -60,20 +60,27 @@ The data set `p2_df` has `r nrow(p2_df)` rows and `r ncol(p2_df)` columns.
 
 #### Next we show a scatterplot of `y` vs `x` using the logical variable, numeric, and factor variable, respectively.
 
+
+#### In the first scatterplot, x + y > 1 is our logical variable, represented by the legend, True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
+
 ```{r yx_scatter}
-# In the first scatterplot, x + y > 1 is our logical variable, represented by the legend, True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
-
 ggplot(p2_df, aes(x = x, y = y, color=log_vec)) + geom_point() 
+```
 
-# In the second scatterplot, we transformed our logical variable into a numeric value. A scale represents that 0 (dark blue) is equal to false (x + y > 1 is FALSE) and 1 (light blue) is equal to true (x+y >1 is TRUE).
+#### In the second scatterplot, we transformed our logical variable into a numeric value. A scale represents that 0 (dark blue) is equal to false (x + y > 1 is FALSE) and 1 (light blue) is equal to true (x+y >1 is TRUE).
 
+```{r}
 ggplot(p2_df, aes(x = x, y = y, color=num_vec)) + geom_point() 
+```
 
-# In the third scatterplot, we transformed our logical variable into a factor value. True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
+#### In the third scatterplot, we transformed our logical variable into a factor value. True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
 
+```{r}
 ggplot(p2_df, aes(x = x, y = y, color=fac_vec)) + geom_point()
+```
 
-# Now, we export the first scatterplot to my project directory using ggsave.
+#### Now, we export the first scatterplot to my project directory using ggsave.
+```{r}
 ggplot(p2_df, aes(x = x, y = y, color=log_vec)) + geom_point() 
 ggsave("scatter_plot.pdf",height = 4, width = 6)
 ```
