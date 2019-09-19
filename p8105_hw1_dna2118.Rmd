@@ -11,6 +11,7 @@ library(tidyverse)
 ```
 
 # Problem 1 
+#### First, we will create a data frame comprised of: a random sample of size 8 from a standard Normal distribution, a logical vector indicating whether elements of the sample are greater than 0, a character vector of length 8, and a factor vector of length 8, with 3 different factor “levels.”
 ```{R Question_1}
 la_df = tibble(
   norm_samp = rnorm(8),
@@ -23,19 +24,20 @@ mean(pull(la_df, norm_samp_pos))
 mean(pull(la_df, vec_char))
 mean(pull(la_df, vec_factor))
 ```
-### The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated.
+#### The mean for variables norm_samp and norm_samp_pos have the ability to be calculated. However, the mean for vector characters and vector factors are unable to be calculated.
 ```{r Question_1A, results="hide"}
   mean(as.numeric(pull(la_df,norm_samp_pos)))
   mean(as.numeric(pull(la_df,vec_char)))
   mean(as.numeric(pull(la_df,vec_factor)))
 ```
-### When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables because they do not have assigned numeric values.
+#### When applying the as.numeric function to the logical, character, and factor variables, the mean was able to be calculated for the logical and factor variables but not the character variables because they do not have assigned numeric values.
 ```{r Question_1B}
   pull(la_df,norm_samp)*(as.numeric(pull(la_df,norm_samp_pos)))
   pull(la_df,norm_samp)*(as.factor(pull(la_df,norm_samp_pos)))
   pull(la_df,norm_samp)*(as.numeric(as.factor(pull(la_df,norm_samp_pos))))
 ```
 # Problem 2 
+#### Now, we will create a data frame comprised of: a random sample of size 500 from a standard Normal distribution, a random sample of size 500 from a standard Normal distribution, a logical vector indicating whether x + y > 1, numeric vector created by coercing the above logical vector, and a factor vector created by coercing the logical vector
 ```{r Question 2}
 set.seed(1234)
 
@@ -56,7 +58,7 @@ The data set `p2_df` has `r nrow(p2_df)` rows and `r ncol(p2_df)` columns.
 * The standard deviation of the sample is `r sd(pull(p2_df,x))`.
 * The proportion of cases for which x + y > 1 is `r mean(pull(p2_df,log_vec))`
 
-Next we show a scatterplot of `y` vs `x` using the logical variable, numeric, and factor variable, respectively.
+#### Next we show a scatterplot of `y` vs `x` using the logical variable, numeric, and factor variable, respectively.
 
 ```{r yx_scatter}
 # In the first scatterplot, x + y > 1 is our logical variable, represented by the legend, True (blue) and False (pink). True values represent the values when x + y is greater than 1, whereas the False values represent when x + y is not greater than 1. 
